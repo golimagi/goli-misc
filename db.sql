@@ -12,7 +12,7 @@ CREATE TABLE `usergroup` (
 	`description` TEXT NOT NULL,
 	UNIQUE (`name`),
 	PRIMARY KEY (`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
 CREATE TABLE `user` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -25,8 +25,8 @@ CREATE TABLE `user` (
 	`lastlogin_time` TIMESTAMP,
 	UNIQUE (`name`),
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`group`) REFERENCES usergroup(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	FOREIGN KEY (`group`) REFERENCES `usergroup`(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
 CREATE TABLE `category` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -47,9 +47,9 @@ CREATE TABLE `video` (
 	`category` INT NOT NULL,
 	`tags` TEXT NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`owner`) REFERENCES user(`id`),
-	FOREIGN KEY (`category`) REFERENCES category(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	FOREIGN KEY (`owner`) REFERENCES `user`(`id`),
+	FOREIGN KEY (`category`) REFERENCES `category`(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
 CREATE TABLE `danmaku` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -60,9 +60,9 @@ CREATE TABLE `danmaku` (
 	`offset` TIME NOT NULL,
 	`created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`video`) REFERENCES video(`id`),
-	FOREIGN KEY (`owner`) REFERENCES user(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	FOREIGN KEY (`video`) REFERENCES `video`(`id`),
+	FOREIGN KEY (`owner`) REFERENCES `user`(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
 CREATE TABLE `comment` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -73,9 +73,9 @@ CREATE TABLE `comment` (
 	`created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`modified_time` TIMESTAMP,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`video`) REFERENCES video(`id`),
-	FOREIGN KEY (`owner`) REFERENCES user(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	FOREIGN KEY (`video`) REFERENCES `video`(`id`),
+	FOREIGN KEY (`owner`) REFERENCES `user`(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
 CREATE TABLE `message` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -86,6 +86,6 @@ CREATE TABLE `message` (
 	`sent_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`read_time` TIMESTAMP,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`from`) REFERENCES user(`id`),
-	FOREIGN KEY (`to`) REFERENCES user(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+	FOREIGN KEY (`from`) REFERENCES `user`(`id`),
+	FOREIGN KEY (`to`) REFERENCES `user`(`id`)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
