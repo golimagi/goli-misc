@@ -18,6 +18,8 @@ CREATE TABLE `user` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(30) NOT NULL DEFAULT '',
 	`mail` VARCHAR(32) NOT NULL DEFAULT '',
+	`password` VARCHAR(64) NOT NULL,
+	`login_hash` VARCHAR(64),
 	`group` INT NOT NULL,
 	`blanklisted` TINYINT(1) NOT NULL DEFAULT 0,
 	`status` TINYINT(1) NOT NULL DEFAULT 1,
