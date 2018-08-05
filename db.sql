@@ -23,6 +23,7 @@ CREATE TABLE `user` (
 	`group` INT NOT NULL,
 	`blanklisted` TINYINT(1) NOT NULL DEFAULT 0,
 	`status` TINYINT(1) NOT NULL DEFAULT 1,
+	`avatar` TEXT,
 	`reg_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`lastlogin_time` TIMESTAMP,
 	UNIQUE (`name`),
