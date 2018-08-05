@@ -35,28 +35,44 @@
 
 一次仅可查询一个用户
 
-请求：`{user_id: Number}`
-
+请求：
+```javascript
+{
+	user_id: Number
+}
+```
 响应：
 ```javascript
-{error: Error, result: {
-  id: Number,
-  name: String,
-  usergroup: Number,
-  registed: Number,
-  last_login: Number,
-  avatar: String
-}}
+{
+	error: Error,
+	result: {
+		id: Number,
+		name: String,
+		usergroup: Number,
+		registed: Number,
+		last_login: Number,
+		avatar: String
+	}
+}
 ```
 
 #### /user/login
 ##### 请求login会话
 
-请求：`{}`
+请求：
+```javascript
+{}
+```
 
-响应：`{error: null, result:{salt: String}}`
+响应：
+```javascript
+{
+	error: null,
+	result: {salt: String}
+}
+```
 
-salt为下一步密码验证所需
+`salt`为下一步密码验证所需
 
 #### /user/auth
 ##### 验证用户密码
@@ -64,23 +80,29 @@ salt为下一步密码验证所需
 请求：
 ```javascript
 {
-  user_id: Number,
-  user_name: String,
-  user_mail: String,
-  password: String
+	user_id: Number,
+	user_name: String,
+	user_mail: String,
+	password: String
 }
 ```
 `user_id`，`user_name`，`user_mail`为可选项，但至少选择一项。
 
 `password`：用户密码Hash后加Salt后再Hash的结果
 
-响应：`{error: null, result: {login_succeed: true}}`(登陆成功) 
+响应(登陆成功)：
+```javascript
+{
+	error: null,
+	result: {login_succeed: true}
+}
+```
 
 登陆失败的响应示例：
 ```javascript
 {
-  error: {code: 101, text: "invalid user or password"},
-  result: {login_succeed: false}
+	error: {code: 101, text: "invalid user or password"},
+	result: {login_succeed: false}
 }
 ```
 
@@ -93,43 +115,70 @@ salt为下一步密码验证所需
 
 前端应缓存查询结果来减少查询次数
 
-请求：`{user_ids: [Number]}`
+请求：
+```javascript
+{
+	user_ids: [Number]
+}
+```
 
 响应：
 ```javascript
-{error: null, result: [{
-  id: Number,
-  name: String,
-  usergroup: Number,
-  avatar: String
-}]}
+{
+	error: null,
+	result: [
+		{
+			id: Number,
+			name: String,
+			usergroup: Number,
+			avatar: String
+		}
+	]
+}
 ```
 `result`为一个列表，包含查询的用户数据结果。
 
 #### /video/info
 ##### 获取视频信息
 
-请求：`{video_id: Number}`
-
+请求：
+```javascript
+{
+	video_id: Number
+}
+```
 响应：
 ```javascript
-{error: null, result: {
-  video_id: Number,
-  user_id: Number,
-  title: String,
-  description: String,
-  category: Number,
-  tags: [Number],
-  status: Number,
-  play_times: Number,
-  urls: [{resolution: String, link: String}]
-}}
+{
+	error: null,
+	result: {
+		video_id: Number,
+		user_id: Number,
+		title: String,
+		description: String,
+		category: Number,
+		tags: [Number],
+		status: Number,
+		play_times: Number,
+		urls: [
+			{resolution: String, link: String}
+		]
+	}
+}
 ```
 
 #### /video/comment
 ##### 获取视频评论
 
-请求：`{video_id: Number, offset: Number, limit: Number, desc: Bool}`
+请求：
+```javascript
+{
+	video_id: Number,
+	offset: Number,
+	limit: Number,
+	desc: Bool
+}
+```
 
 `desc`为排序，默认为正序列(`false`)
 
@@ -139,12 +188,17 @@ salt为下一步密码验证所需
 
 响应 返回评论列表：
 ```javascript
-{error: null, result: [{
-  id: Number,
-  user_id: Number,
-  content: String,
-  reply_to: Number
-}]}
+{
+	error: null,
+	result: [
+		{
+			id: Number,
+			user_id: Number,
+			content: String,
+			reply_to: Number
+		}
+	]
+}
 ```
 
 #### /video/danmaku
@@ -152,17 +206,26 @@ salt为下一步密码验证所需
 
 一次会返回该视频所有弹幕
 
-请求：`{video_id: Number}`
-
+请求：
+```javascript
+{
+	video_id: Number
+}
+```
 响应：
 ```javascript
-{error: null, result: [
-  id: Number,
-  user_id: Number,
-  text: String,
-  position: Number,
-  offset: Number
-]}
+{
+	error: null,
+	result: [
+		{
+			id: Number,
+			user_id: Number,
+			text: String,
+			position: Number,
+			offset: Number
+		}
+	]
+}
 ```
 
 `text`: 弹幕文本（包含样式表）
@@ -179,11 +242,11 @@ salt为下一步密码验证所需
 请求：
 ```javascript
 {
-  user_id: Number,
-  option: String,
-  value: String,
-  password: String,
-  password_salt: String
+	user_id: Number,
+	option: String,
+	value: String,
+	password: String,
+	password_salt: String
 }
 ```
 
@@ -197,62 +260,153 @@ salt为下一步密码验证所需
 
 `password_salt`: 计算`password` Hash 时采用的 salt ，由前端生成即可，不需要请求`/user/login`获取
 
-成功响应：`{error: null, result: null}`
+成功响应：
+```javascript
+{
+	error: null,
+	result: null
+}
+```
 
-失败响应（示例）：`{error: {code: 103, text: "invalid password"}, result: null}`
+失败响应（示例）：
+```javascript
+{
+	error: {code: 103, text: "invalid password",
+	result: null
+}
+```
 
 #### /user/recover
 ##### 用户使用辅助手段重置密码
 
-请求：`{user_id: Number, password: String, token: String}`
+请求：
+```javascript
+{
+	user_id: Number,
+	password: String,
+	token: String
+}
+```
 
 `password`为密码的Hash
 
-成功响应：`{error: null, result: null}`
+成功响应：
+```javascript
+{
+	error: null,
+	result: null
+}
+```
 
-失败响应（示例）：`{error: {code: 104, text: "invalid token"}, result: null}`
+失败响应（示例）：
+```javascript
+{
+	error: {code: 104, text: "invalid token"},
+	result: null
+}
+```
 
 #### /video/plus1s
 ##### 将视频播放次数 +1
 
 当用户视频播放时间超过视频总时长 1/3 时，前端应请求此 api 为视频播放次数 +1
 
-请求：`{video_id: Number}`
-
-响应：`{error: null, result: null}`
+请求：
+```javascript
+{
+	video_id: Number
+}
+```
+响应：
+```javascript
+{
+	error: null,
+	result: null
+}
+```
 
 #### /video/comment/new
 ##### 添加评论
 
-请求：`{video_id: Number, content: String, reply_to: Number}`
+请求：
+```javascript
+{
+	video_id: Number,
+	content: String,
+	reply_to: Number
+}
+```
 
 `reply_to`: 回复其它评论的`comment_id`。后端应确保回复在同一视频下。
 
-响应：`{error: null, result: {id: Number}}`
-
+响应：
+```javascript
+{
+	error: null,
+	result: {id: Number}
+}
+```
 返回该评论的`id`。
 
 #### /video/comment/edit
 ##### 修改评论
 
-请求：`{comment_id: Number, content: String}`
+请求：
+```javascript
+{
+	comment_id: Number,
+	content: String
+}
+```
 
 若`content`为空，则删除该评论。
 
-响应：`{error: null, result: null}`
-
+响应：
+```javascript
+{
+	error: null,
+	result: null
+}
+```
 #### /video/danmaku/new
 ##### 添加弹幕
 
-请求：`{video_id: Number, text: String, position: Number, offset: Number}`
+请求：
+```javascript
+{
+	video_id: Number,
+	text: String,
+	position: Number,
+	offset: Number
+}
+```
 
 参考 _获取弹幕_
 
-响应：`{error: null, result: {id: Number}}`
+响应：
+```javascript
+{
+	error: null,
+	result: {id: Number}
+}
+```
+
+返回该弹幕的`id`。
 
 #### /video/danmaku/del
 ##### 删除弹幕
 
-请求：`{danmaku_id: Number}`
+请求：
+```javascript
+{
+	danmaku_id: Number
+}
+```
 
-响应：`{error: null, result: null}`
+响应：
+```javascript
+{
+	error: null,
+	result: null
+}
+```
