@@ -54,19 +54,6 @@ CREATE TABLE `video` (
 	FOREIGN KEY (`category`) REFERENCES `category`(`id`)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
 
-CREATE TABLE `danmaku` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`video` INT NOT NULL,
-	`owner` INT NOT NULL,
-	`text` TEXT NOT NULL,
-	`position` TINYINT(1) NOT NULL DEFAULT 0,
-	`offset` TIME NOT NULL,
-	`created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`video`) REFERENCES `video`(`id`),
-	FOREIGN KEY (`owner`) REFERENCES `user`(`id`)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB;
-
 CREATE TABLE `comment` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`video` INT NOT NULL,

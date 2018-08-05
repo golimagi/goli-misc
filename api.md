@@ -201,39 +201,6 @@
 }
 ```
 
-#### /video/danmaku
-##### 获取弹幕
-
-一次会返回该视频所有弹幕
-
-请求：
-```javascript
-{
-	video_id: Number
-}
-```
-响应：
-```javascript
-{
-	error: null,
-	result: [
-		{
-			id: Number,
-			user_id: Number,
-			text: String,
-			position: Number,
-			offset: Number
-		}
-	]
-}
-```
-
-`text`: 弹幕文本（包含样式表）
-
-`position`: 弹幕位置（上/中/下/滚）
-
-`offset`: 弹幕出现时间
-
 ### 变更数据类
 
 #### /user/edit
@@ -360,48 +327,6 @@
 ```
 
 若`content`为空，则删除该评论。
-
-响应：
-```javascript
-{
-	error: null,
-	result: null
-}
-```
-#### /video/danmaku/new
-##### 添加弹幕
-
-请求：
-```javascript
-{
-	video_id: Number,
-	text: String,
-	position: Number,
-	offset: Number
-}
-```
-
-参考 _获取弹幕_
-
-响应：
-```javascript
-{
-	error: null,
-	result: {id: Number}
-}
-```
-
-返回该弹幕的`id`。
-
-#### /video/danmaku/del
-##### 删除弹幕
-
-请求：
-```javascript
-{
-	danmaku_id: Number
-}
-```
 
 响应：
 ```javascript
